@@ -37,7 +37,6 @@ Report:
 
 Nia
 Report: 
-
 ✅ This function runs successfully if the account address calling it is the owner of the contract. It will perform its 
     set function, ie., change the state variable "owner" to the submitted address by the current owner of the contract. 
 ❌ The function does not run if the contract address calling it (msg.sender) is not set as the owner of the HelloWorld contract.
