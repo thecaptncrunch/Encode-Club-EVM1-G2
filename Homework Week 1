@@ -27,8 +27,22 @@ Report:
         text = newText;
     }
 
-Layla
+Deepshikha
 Report:
+✅ If the function is executed by the contract owner, the text variable is successfully updated to the new input value, 
+and the transaction is recorded on the blockchain.
+❌ If a non-owner attempts to execute the function, the transaction is reverted, and an error message is returned indicating 
+that only the owner has permission to perform this action.
+
+function setText(string calldata newText) public newOwner {
+        text = newText;
+    }
+
+Deepshikha
+Report:
+❌ The contract fails to compile, preventing deployment and execution. The function references newOwner, but no such modifier exists 
+in the contract. Solidity requires all modifiers to be properly defined before being applied to a function. This results in a compilation 
+error, making contract deployment impossible.
 
     function transferOwnership(address newOwner) public onlyOwner {
         owner = newOwner;
