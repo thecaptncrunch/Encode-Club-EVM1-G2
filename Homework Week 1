@@ -20,11 +20,20 @@ contract HelloWorld {
         return text;
     }
 
+Laurent
+Report: 
+
     function setText(string calldata newText) public onlyOwner {
         text = newText;
     }
+
+Layla
+Report:
 
     function transferOwnership(address newOwner) public onlyOwner {
         owner = newOwner;
     }
 }
+
+Nia
+Report: 
