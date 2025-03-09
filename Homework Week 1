@@ -55,3 +55,14 @@ Report:
     set function, ie., change the state variable "owner" to the submitted address by the current owner of the contract. 
 ❌ The function does not run if the contract address calling it (msg.sender) is not set as the owner of the HelloWorld contract.
     It will revert "Caller is not the owner" as set by the modifier of the contract. 
+
+
+Report:
+✅ This function executes successfully and returns the current owner’s address. It allows any user to check who the contract owner is before attempting restricted actions.
+❌ There are no conditions that would cause the function to revert since it is a simple view function that does not modify the blockchain state. However, if the function is
+called before the contract is deployed, no owner address exists, making it inaccessible.
+
+function getOwner() public view returns (address) {
+    return owner;
+}
+Evelin
