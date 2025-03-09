@@ -21,7 +21,7 @@ contract HelloWorld {
     }
 
 Laurent
-Report: 
+Report: See Homework PDF
 
     function setText(string calldata newText) public onlyOwner {
         text = newText;
