@@ -57,12 +57,13 @@ Report:
     It will revert "Caller is not the owner" as set by the modifier of the contract. 
 
 
+function getOwner() public view returns (address) {
+    return owner;
+}
+
+Evelin
 Report:
 ✅ This function executes successfully and returns the current owner’s address. It allows any user to check who the contract owner is before attempting restricted actions.
 ❌ There are no conditions that would cause the function to revert since it is a simple view function that does not modify the blockchain state. However, if the function is
 called before the contract is deployed, no owner address exists, making it inaccessible.
 
-function getOwner() public view returns (address) {
-    return owner;
-}
-Evelin
