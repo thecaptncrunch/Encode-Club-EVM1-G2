@@ -1,6 +1,7 @@
-import { createPublicClient, http, createWalletClient, formatEther } from "viem";
+import { createPublicClient, http, createWalletClient, formatEther, toHex, hexToString, Address } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { sepolia } from "viem/chains";
+import { abi, bytecode } from "../artifacts/contracts/Ballot.sol/Ballot.json";
 import * as dotenv from "dotenv";
 dotenv.config();
 
@@ -35,6 +36,29 @@ async function main() {
     formatEther(balance),
     deployer.chain.nativeCurrency.symbol
   );
+
+  console.log("\nDeploying Ballot contract");
+  const hash = await deployer.deployContract({
+    abi,
+    bytecode: bytecode as `0x${string}`,
+    args: [proposals.map((prop) => toHex(prop, { size: 32 }))],
+  });
+  console.log("Transaction hash:", hash);
+  console.log("Waiting for confirmations...");
+  const receipt = await publicClient.waitForTransactionReceipt({ hash });
+  console.log("Ballot contract deployed to:", receipt.contractAddress);
+
+  console.log("Proposals: ");
+  for (let index = 0; index < proposals.length; index++) {
+    const proposal = (await publicClient.readContract({
+      address: receipt.contractAddress as Address,
+      abi,
+      functionName: "proposals",
+      args: [BigInt(index)],
+    })) as any[];
+    const name = hexToString(proposal[0], { size: 32 });
+    console.log({ index, name, proposal });
+  }
 }
 
 
