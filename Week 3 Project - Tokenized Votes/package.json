@@ -1,6 +1,8 @@
 {
   "devDependencies": {
+    "@nomicfoundation/hardhat-ethers": "^3.0.8",
     "@nomicfoundation/hardhat-toolbox-viem": "^3.0.0",
+    "ethers": "^6.13.5",
     "hardhat": "^2.22.19"
   },
   "name": "project2",
@@ -118,7 +120,6 @@
     "ethereum-cryptography": "^1.2.0",
     "ethereumjs-abi": "^0.6.8",
     "ethereumjs-util": "^6.2.1",
-    "ethers": "^6.13.5",
     "ethjs-unit": "^0.1.6",
     "ethjs-util": "^0.1.6",
     "eventemitter3": "^5.0.1",
