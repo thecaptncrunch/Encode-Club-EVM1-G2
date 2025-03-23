@@ -15,6 +15,7 @@ contract TokenizedBallot {
     Proposal[] public proposals;
     uint256 public targetBlockNumber;
     mapping (address => uint256) votePowerSpent; 
+    mapping(address => address) public delegatedTo;
 
     constructor(
         bytes32[] memory _proposalNames,
@@ -28,12 +29,27 @@ contract TokenizedBallot {
         }
     }
 
+
+    function delegate(address to) external {
+        require(to != msg.sender, "TokenizedBallot: Cannot delegate to yourself");
+        require(delegatedTo[msg.sender] == address(0), "TokenizedBallot: Already delegated");
+
+        delegatedTo[msg.sender] = to;
+    }
+
     function vote(uint256 proposal, uint256 amount) external {
+        address actualVoter = msg.sender;
+
+        if (delegatedTo[msg.sender] != address(0)) {
+            actualVoter = delegatedTo[msg.sender];
+        }
+
         require(
-            getRemainingVotingPower(msg.sender) >= amount,
+            getRemainingVotingPower(actualVoter) >= amount,
             "TokenizedBallot: Voter is trying to vote with more votes than it has"
-            );
-        votePowerSpent[msg.sender] += amount;
+        );
+
+        votePowerSpent[actualVoter] += amount;
         proposals[proposal].voteCount += amount;
     }
 
