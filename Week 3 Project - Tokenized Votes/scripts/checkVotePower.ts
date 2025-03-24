@@ -14,12 +14,13 @@ if (!contractAddress) {
 }
 
 async function main() {
-  const parameters = process.argv.slice(2);
-  if (parameters.length < 1) {
-    throw new Error("You must provide the address of the voter.");
+
+  const voterAddress = process.env.VOTER_ADDRESS;
+
+  if (!voterAddress) {
+    throw new Error("You must provide the address of the voter in the environment variable.");
   }
 
-  const voterAddress = parameters[0] as `0x${string}`;
   if (!/^0x[a-fA-F0-9]{40}$/.test(voterAddress)) {
     throw new Error("Invalid voter address");
   }
@@ -28,6 +29,7 @@ async function main() {
     chain: sepolia,
     transport: http(`https://eth-sepolia.g.alchemy.com/v2/${providerApiKey}`),
   });
+
 
   const account = privateKeyToAccount(`0x${deployerPrivateKey}`);
   const walletClient = createWalletClient({
@@ -44,7 +46,7 @@ async function main() {
   }) as bigint;
 
   console.log(
-    `Account ${voterAddress} has ${votes.toString()} units of voting power before self-delegating\n`
+    `Account ${voterAddress} has ${votes.toString()} units of voting power\n`
   );
 }
 
