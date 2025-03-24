@@ -39,15 +39,6 @@ async function main() {
     console.log("Proposal selected: ", parameters[0]);
     const contractAddress = deployedContract as `0x${string}`;
     console.log("Deployed contract address is:", contractAddress);
-    const proposal = (await publicClient.readContract({
-      address: contractAddress,
-      abi,
-      functionName: "proposals",
-      args: [BigInt(proposalIndex)],
-    })) as any[];
-    const name = hexToString(proposal[0], { size: 32 });
-    console.log("Voting to proposal", name);
-    console.log("Confirm? (Y/n)");
 
     const readline = require('readline');
     const rl = readline.createInterface({
@@ -79,3 +70,5 @@ async function main() {
     console.error(error);
     process.exitCode = 1;
   });
+
+  // This script reverted due to issues with the parameters. We were unable to resolve. 
